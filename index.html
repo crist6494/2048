@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2048</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="./src/styles.css">
+</head>
+<body>
+    <div class="container d-flex flex-column align-items-center gap-4 mt-4">
+        <div class="head-section d-flex align-items-between w-75 gap-5 justify-content-around ">
+            <div class="">
+                <h1 class="title">2048</h1>
+                <p class="text-light" style="font-size: 15px; opacity: 0.7;">Play 2048 Game Online
+                    Join the numbers and get to the 2048 tile!</p>
+            </div>
+            <div class="d-flex flex-column align-items-end justify-content-center">
+                <div class="puntuation-board d-flex justify-content-between gap-3 ">
+                    <div class="puntuation">
+                        <h3>Score</h3>
+                        <span id="score">0</span>
+                    </div>
+                    <div class="puntuation">
+                        <h3>Best</h3>
+                        <span id="best">2134</span>
+                    </div>
+                </div>
+                <button class="btn-game w-75" id="new-game">New Game</button>
+            </div>
+        </div>
+
+        <div class="grid-section"></div>
+    </div>
+    <script src="./src/index.js"></script>
+</body>
+</html>
