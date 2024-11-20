@@ -38,6 +38,7 @@ function updateBoard() {
         }
     });
     scoreDisplay.textContent = score;
+    if(score > parseInt(scoreBestDisplay.textContent)) scoreBestDisplay.textContent = score;
 }
 
 function animateScoreIncrease(incrementValue) {
@@ -209,7 +210,6 @@ function checkGame(){
     if(checkYouWin()){
         finishGame('You Win!', 'rgba(230, 0, 255, 0.87)');
         isGameOver = true;
-        if(score > parseInt(scoreBestDisplay.textContent)) scoreBestDisplay.textContent = score;
     }else if(checkGameOver()){
         finishGame('Game Over!', 'rgba(230, 32, 32, 0.905)');
         isGameOver = true;
