@@ -4,33 +4,39 @@
     --grid-size: 4;
     --cell-size: clamp(80px, 12vmin, 200px);
     --cell-gap: clamp(10px, 1vmin, 30px);
-    --cell-font-size: clamp(25px, 2vmin, 50px);
-    
+    --cell-font-size: clamp(25px, 2vmin, 50px);; 
 }
 
 html, body {
     margin: 0;
     padding: 0;
-    background: #faf8ef;
-    color: #776e65;
     font-family: "Microsoft YaHei", sans-serif, 'Microsoft Sans Serif','Microsoft JhengHei UI' !important;
     font-size: 18px;
     background-color: var(--primary-bg-color);
     scroll-behavior: smooth;
 }
 
-.background{
+.background {
     border: 3px solid #a6008a;
-    padding: 60px 50px;
+    padding: clamp(30px, 5vmin, 60px) clamp(10px, 4vmin, 50px);
     border-radius: 10px;
 }
 
 .title {
     color: var(--tile-2048);
-    font-size: 60px;
+    font-size: 70px;
     margin-top: 20px;
     font-weight: bold;
     opacity: 0.9;
+    text-shadow: 3px 3px 6px rgba(149, 1, 165, 0.5);
+}
+
+.description {
+    color: rgb(195, 195, 195);
+    font-size: 15px;
+    margin-top: 20px;
+    opacity: 0.9;
+    white-space: nowrap;
 }
 
 .puntuation {
@@ -43,6 +49,7 @@ html, body {
     border-radius: 5px;
     padding: 5px 10px;
     text-transform: uppercase;
+    box-shadow: 3px 3px 10px rgba(255, 9, 247, 0.2);
 }
 
 .puntuation h3 {
@@ -67,6 +74,13 @@ html, body {
     cursor: pointer;
     font-size: 18px;
     margin-top: 20px;
+    transition: background-color 0.3s ease;
+    box-shadow: 3px 3px 10px rgba(255, 9, 243, 0.2);
+}
+
+.restart-btn:hover {
+    background-color: var(--tile-2048);
+    opacity: 0.9;
 }
 
 .grid-section {
@@ -74,9 +88,9 @@ html, body {
     display: grid;
     grid-template-columns: repeat(var(--grid-size), var(--cell-size));
     grid-template-rows: repeat(var(--grid-size), var(--cell-size));
+    place-items: center;
     gap: var(--cell-gap);
 }
-
 
 .grid-cell {
     position: absolute;
@@ -105,14 +119,34 @@ html, body {
     font-weight: bold;
 }
 
+#score {
+
+    font-weight: bold;
+    color: #fff;
+    transition: color 5s ease;
+}
+
+#score-increment {
+    font-size: 18px;
+    top: 60%;
+    left: 60%;
+    position: absolute;
+    opacity: 0;
+    
+}
+
+#score-increment.appear {
+    animation: moveIncrementScore 0.5s ease;
+}
+
 .game-over {
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(5, 11, 23, 0.784); 
-    color: white;
+    top: -2.5%;
+    left: -2.5%;
+    width: 105%;
+    height: 105%;
+    background-color: rgba(5, 11, 23, 0.853); 
+    opacity: 0.8;
     border-radius: 10px;
     text-align: center;
     font-size: 40px;
@@ -122,8 +156,17 @@ html, body {
     align-items: center;
     opacity: 0;
     transform: scale(0);
-    animation: fadeIn 1s forwards, zoomIn 1s forwards;
+    animation: fadeIn 1.2s forwards, zoomIn 1.2s forwards;
 }
+
+.game-over h1 {
+    margin: 0;
+    font-size: 50px;
+    text-transform: uppercase;
+    color: var();
+    font-weight: bold;
+}
+
 
 @keyframes fadeIn {
     0% {
@@ -143,16 +186,6 @@ html, body {
     }
 }
 
-.game-over h1 {
-    margin: 0;
-    font-size: 50px;
-    text-transform: uppercase;
-    color: var();
-    font-weight: bold;
-}
-
-
-
 @keyframes appear {
     0% {
         transform: scale(0);
@@ -164,33 +197,40 @@ html, body {
     }
 }
 
-
-#score {
-
-    font-weight: bold;
-    color: #fff;
-    transition: color 5s ease;
-}
-
-#score-increment {
-    font-size: 18px;
-    top: 60%;
-    left: 50%;
-    position: absolute;
-    opacity: 0;
-    animation: moveIncrementScore 1s forwards;
-}
-
-
 @keyframes moveIncrementScore {
     0% {
         transform: translateY(0);
         opacity: 1;
     }
     100% {
-        transform: translateY(-35px);
-        opacity: 0;
+        transform: translateY(-25px);
+        opacity: 1;
     }
 }
 
 
+@media screen and (max-width: 768px) {
+    .title {
+        font-size: 50px;
+    }
+    .description {
+        font-size: 12px;
+    }
+
+    .puntuation {
+        padding: 7px 5px;
+    }
+
+    .puntuation span {
+        font-size: 17px;
+    }
+
+    .puntuation h3 {
+        font-size: 13px;
+    }
+
+    .restart-btn {
+        font-size: 14px; 
+    }
+    
+}

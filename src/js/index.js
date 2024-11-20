@@ -2,8 +2,10 @@ const gridSection = document.querySelector('.grid-section');
 const restartButton = document.querySelector('.restart-btn');
 const scoreDisplay = document.querySelector('#score');
 const scoreIncrementDisplay = document.getElementById('score-increment');
+const scoreBestDisplay = document.getElementById('score-best');
 let grid = [];
 let score = 0;
+let isGameOver = false;
 
 function createBoard() {
     gridSection.innerHTML = ''; 
@@ -39,14 +41,12 @@ function updateBoard() {
 }
 
 function animateScoreIncrease(incrementValue) {
-    
-    scoreIncrementDisplay.innerHTML = `<span id="score-increment" class="score-increment"">${incrementValue}</span>`;
-
-    setTimeout(() => {
-        scoreIncrementDisplay.classList.remove('animate-increment');
-    }, 1000);
-    scoreIncrementDisplay.innerHTML = '';
+    scoreIncrementDisplay.textContent = `+${incrementValue}`;
+    scoreIncrementDisplay.classList.add('appear');
     score += incrementValue;
+    setTimeout(() => {
+        scoreIncrementDisplay.classList.remove('appear');
+    }, 1000);
 }
 
 
@@ -112,16 +112,12 @@ function moveVertical(direction) {
         }
     }
 
-    if (moved) {
-        animateScoreIncrease(incrementValue); // Llamamos a la animación con el valor real del incremento
-    }
-
-    return moved;
+    return { moved, incrementValue };
 }
 
 function moveHorizontal(direction) {
     let moved = false;
-    let incrementValue = 0; // Aquí vamos a acumular el incremento
+    let incrementValue = 0;
 
     for (let row = 0; row < 4; row++) {
         let newRow = grid[row].filter(val => val);
@@ -130,7 +126,7 @@ function moveHorizontal(direction) {
             for (let col = 0; col < newRow.length - 1; col++) {
                 if (newRow[col] === newRow[col + 1]) {
                     newRow[col] *= 2;
-                    incrementValue += newRow[col];  // Sumar el incremento
+                    incrementValue += newRow[col];
                     newRow.splice(col + 1, 1);
                 }
             }
@@ -141,7 +137,7 @@ function moveHorizontal(direction) {
             for (let col = newRow.length - 1; col > 0; col--) {
                 if (newRow[col] === newRow[col - 1]) {
                     newRow[col] *= 2;
-                    incrementValue += newRow[col];  // Sumar el incremento
+                    incrementValue += newRow[col];
                     newRow.splice(col - 1, 1);
                 }
             }
@@ -155,11 +151,7 @@ function moveHorizontal(direction) {
         grid[row] = newRow;
     }
 
-    if (moved) {
-        animateScoreIncrease(incrementValue); // Llamamos a la animación con el valor real del incremento
-    }
-
-    return moved;
+    return {moved, incrementValue};
 }
 
 
@@ -180,38 +172,59 @@ function moveDown() {
 }
 
 function handleKeyPress(event) {
+    if (isGameOver) return;
     event.preventDefault();
-    let moved = false;
+    let movement = {
+        moved: false,
+        incrementValue: 0
+    };
     switch(event.key) {
         case 'ArrowUp':
         case 'w':
-            moved = moveUp();
+            movement = moveUp();
             break;
         case 'ArrowDown':
         case 's':
-            moved = moveDown();
+            movement = moveDown();
             break;
         case 'ArrowLeft':
         case 'a':
-            moved = moveLeft();
+            movement = moveLeft();
             break;
         case 'ArrowRight':
         case 'd':
-            moved = moveRight();
+            movement = moveRight();
             break;
     }
-    if (moved) {
+    if (movement.moved) {
+        console.log(movement.moved);
+        if (movement.incrementValue > 0) animateScoreIncrease(movement.incrementValue);
         updateBoard();
         setRandomCell();
-       /*  
-        if(checkGameOver() === false){
-            
-            let game_over = document.createElement('div');
-            game_over.classList.add('game-over');
-            game_over.innerHTML = '<h1>Game Over</h1>'; // El texto dentro del mensaje
-            gridSection.appendChild(game_over);
-        } */
+        checkGame();
     }
+}
+
+function checkGame(){
+    if(checkYouWin()){
+        finishGame('You Win!', 'rgba(230, 0, 255, 0.87)');
+        isGameOver = true;
+        if(score > parseInt(scoreBestDisplay.textContent)) scoreBestDisplay.textContent = score;
+    }else if(checkGameOver()){
+        finishGame('Game Over!', 'rgba(230, 32, 32, 0.905)');
+        isGameOver = true;
+    }
+}
+
+function checkYouWin() {
+    for (let row = 0; row < 4; row++) {
+        for (let col = 0; col < 4; col++) {
+            if (grid[row][col] === 2048) {
+                return true;
+            }
+        }
+    }
+    return false;
 }
 
 function checkGameOver() {
@@ -231,9 +244,18 @@ function checkGameOver() {
     return true;
 }
 
+function finishGame(text, color) {
+    const gameOver = document.createElement('div');
+    gameOver.classList.add('game-over');
+    gameOver.innerHTML = `<h1 style="color:${color};">${text}</h1>`;
+    gridSection.appendChild(gameOver);
+}
+
 function InitGame(){
+    isGameOver = false;
     grid = new Array(4).fill(0).map(() => new Array(4).fill(0));
     score = 0;
+    scoreDisplay.textContent = score;
     createBoard();
     setRandomCell();
     setRandomCell();
