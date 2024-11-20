@@ -1,0 +1,84 @@
+:root{
+    --primary-color: #4242C7;
+    --secondary-color: #ABD9D9;
+    --primary-bg-color: #000235;
+    --secondary-bg-color: #12134F;
+    --purple-color: #7f7fc9;
+    --tile-2: #b1d8f1;
+    --tile-4: #81c9fc;
+    --tile-8: #61aff4;
+    --tile-16: #61aff4;
+    --tile-32: #03c4ff;
+    --tile-64: #0671f3;
+    --tile-128: #2b01fb;
+    --tile-256: #6908e0;
+    --tile-512: #b403e0;
+    --tile-1024: #de01c1;
+    --tile-2048: #ff00d4;
+}
+
+.grid-cell[value="2"] {
+    color: var(--tile-2);
+    border: 3px solid var(--tile-2);
+    background-color: #b1d8f149;
+}
+
+.grid-cell[value="4"] {
+    color: var(--tile-4);
+    border: 3px solid var(--tile-4);
+    background-color: #81c9fc3a;
+}
+
+.grid-cell[value="8"] {
+    color: var(--tile-8);
+    border: 3px solid var(--tile-8);
+    background-color: #61aff415;
+}
+
+.grid-cell[value="16"] {
+    color: var(--tile-16);
+    border: 3px solid var(--tile-16);
+    background-color: #61aff41b;
+}
+
+.grid-cell[value="32"] {
+    color: var(--tile-32);
+    border: 3px solid var(--tile-32);
+    background-color: #03c4ff2c;
+}
+
+.grid-cell[value="64"] {
+    color: var(--tile-64);
+    border: 3px solid var(--tile-64);
+    background-color: #0671f322;
+}
+
+.grid-cell[value="128"] {
+    color: var(--tile-128);
+    border: 3px solid var(--tile-128);
+    background-color: #2b01fb17;
+}
+
+.grid-cell[value="256"] {
+    color: var(--tile-256);
+    border: 3px solid var(--tile-256);
+    background-color: #6908e031;
+}
+
+.grid-cell[value="512"] {
+    color: var(--tile-512);
+    border: 3px solid var(--tile-512);
+    background-color: #b403e022;
+}
+
+.grid-cell[value="1024"] {
+    color: var(--tile-1024);
+    border: 3px solid var(--tile-1024);
+    background-color: #de01c123;
+}
+
+.grid-cell[value="2048"] {
+    color: var(--tile-2048);
+    border: 3px solid var(--tile-2048);
+    background-color: #ff00d425;
+}
